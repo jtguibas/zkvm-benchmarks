@@ -438,7 +438,7 @@ dependencies = [
 [[package]]
 name = "common"
 version = "0.2.0"
-source = "git+https://github.com/a16z/Lasso?branch=jolt#58d3f7ff614e5cd716310d27bab2c05ef3a847c2"
+source = "git+https://github.com/a16z/Lasso?branch=jolt#de19154f7748b2a0c876764b2ecb54ba3bd5a975"
 dependencies = [
  "ark-serialize",
  "serde",
@@ -1034,7 +1034,7 @@ dependencies = [
 [[package]]
 name = "jolt-core"
 version = "0.1.0"
-source = "git+https://github.com/a16z/Lasso?branch=jolt#58d3f7ff614e5cd716310d27bab2c05ef3a847c2"
+source = "git+https://github.com/a16z/Lasso?branch=jolt#de19154f7748b2a0c876764b2ecb54ba3bd5a975"
 dependencies = [
  "ark-bn254",
  "ark-ec",
@@ -1076,7 +1076,7 @@ dependencies = [
 [[package]]
 name = "jolt-sdk"
 version = "0.1.0"
-source = "git+https://github.com/a16z/Lasso?branch=jolt#58d3f7ff614e5cd716310d27bab2c05ef3a847c2"
+source = "git+https://github.com/a16z/Lasso?branch=jolt#de19154f7748b2a0c876764b2ecb54ba3bd5a975"
 dependencies = [
  "ark-bn254",
  "ark-ec",
@@ -1094,7 +1094,7 @@ dependencies = [
 [[package]]
 name = "jolt-sdk-macros"
 version = "0.1.0"
-source = "git+https://github.com/a16z/Lasso?branch=jolt#58d3f7ff614e5cd716310d27bab2c05ef3a847c2"
+source = "git+https://github.com/a16z/Lasso?branch=jolt#de19154f7748b2a0c876764b2ecb54ba3bd5a975"
 dependencies = [
  "common",
  "postcard",
@@ -1883,7 +1883,7 @@ dependencies = [
 [[package]]
 name = "tracer"
 version = "0.2.0"
-source = "git+https://github.com/a16z/Lasso?branch=jolt#58d3f7ff614e5cd716310d27bab2c05ef3a847c2"
+source = "git+https://github.com/a16z/Lasso?branch=jolt#de19154f7748b2a0c876764b2ecb54ba3bd5a975"
 dependencies = [
  "common",
  "fnv",

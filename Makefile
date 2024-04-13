@@ -8,7 +8,7 @@ bench-jolt:
 
 bench-sp1:
 	make build-sp1
-	cd sp1 && RUSTFLAGS="-C target-cpu=native" cargo run --release
+	cd sp1 && RUSTFLAGS='-C target-cpu=native -C target_feature=+avx512ifma,+avx512vl' RECONSTRUCT_COMMITMENTS=false cargo +nightly run --release
 
 build-sp1:
 	cd sp1/fibonacci && cargo prove build

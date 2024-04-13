@@ -1,8 +1,7 @@
 #![feature(generic_const_exprs)]
 
 use std::time::{Duration, Instant};
-
-use sp1_sdk::{utils::BabyBearPoseidon2, SP1ProofWithIO, SP1Prover, SP1Stdin, SP1Verifier};
+use sp1_sdk::{utils::BabyBearPoseidon2, SP1ProofWithIO, ProverClient, SP1Stdin};
 use utils::{benchmark, size};
 
 const FIBONACCI_ELF: &[u8] = include_bytes!("../fibonacci/elf/riscv32im-succinct-zkvm-elf");
@@ -75,7 +74,8 @@ fn benchmark_sha2_chain(iters: u32) -> (Duration, usize) {
     stdin.write(&iters);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(SHA2_CHAIN_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(SHA2_CHAIN_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
@@ -92,12 +92,13 @@ fn benchmark_sha3_chain(iters: u32) -> (Duration, usize) {
     stdin.write(&iters);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(SHA3_CHAIN_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(SHA3_CHAIN_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
     let _hash = proof.public_values.read::<[u8; 32]>();
-    SP1Verifier::verify_with_config(SHA3_CHAIN_ELF, &proof, BabyBearPoseidon2::new()).expect("verification failed");
+    client.verify(SHA3_CHAIN_ELF, &proof).expect("verification failed");
 
     (duration, size(&proof))
 }
@@ -108,12 +109,13 @@ fn benchmark_sha2(num_bytes: usize) -> (Duration, usize) {
     stdin.write(&input);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(SHA2_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(SHA2_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
     let _hash = proof.public_values.read::<[u8; 32]>();
-    SP1Verifier::verify_with_config(SHA2_ELF, &proof, BabyBearPoseidon2::new()).expect("verification failed");
+    client.verify(SHA2_ELF, &proof).expect("verification failed");
 
     (duration, size(&proof))
 }
@@ -124,12 +126,13 @@ fn benchmark_sha3(num_bytes: usize) -> (Duration, usize) {
     stdin.write(&input);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(SHA3_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(SHA3_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
     let _hash = proof.public_values.read::<[u8; 32]>();
-    SP1Verifier::verify_with_config(SHA3_ELF, &proof, BabyBearPoseidon2::new()).expect("verification failed");
+    client.verify(SHA3_ELF, &proof).expect("verification failed");
 
     (duration, size(&proof))
 }
@@ -139,12 +142,13 @@ fn bench_fibonacci(n: u32) -> (Duration, usize) {
     stdin.write(&n);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(FIBONACCI_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(FIBONACCI_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
     let _output = proof.public_values.read::<u128>();
-    SP1Verifier::verify_with_config(FIBONACCI_ELF, &proof, BabyBearPoseidon2::new()).expect("verification failed");
+    client.verify(FIBONACCI_ELF, &proof).expect("verification failed");
 
     (duration, size(&proof))
 }
@@ -154,12 +158,13 @@ fn bench_bigmem(value: u32) -> (Duration, usize) {
     stdin.write(&value);
 
     let start = Instant::now();
-    let mut proof = SP1Prover::prove_with_config(BIGMEM_ELF, stdin, BabyBearPoseidon2::new()).unwrap();
+    let client = ProverClient::new();
+    let mut proof = client.prove(BIGMEM_ELF, stdin).unwrap();
     let end = Instant::now();
     let duration = end.duration_since(start);
 
     let _output = proof.public_values.read::<u32>();
-    SP1Verifier::verify_with_config(BIGMEM_ELF, &proof, BabyBearPoseidon2::new()).expect("verification failed");
+    client.verify(BIGMEM_ELF, &proof).expect("verification failed");
 
     (duration, size(&proof))
 }
