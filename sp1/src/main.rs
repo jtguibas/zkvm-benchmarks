@@ -1,8 +1,9 @@
 #![feature(generic_const_exprs)]
 
 use std::time::{Duration, Instant};
-use sp1_sdk::{utils::BabyBearPoseidon2, SP1ProofWithIO, ProverClient, SP1Stdin};
 use utils::{benchmark, size};
+use sp1_sdk::SP1Stdin;
+use sp1_sdk::ProverClient;
 
 const FIBONACCI_ELF: &[u8] = include_bytes!("../fibonacci/elf/riscv32im-succinct-zkvm-elf");
 const SHA2_ELF: &[u8] = include_bytes!("../sha2/elf/riscv32im-succinct-zkvm-elf");
